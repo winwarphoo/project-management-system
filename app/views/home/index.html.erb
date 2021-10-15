@@ -1,0 +1,101 @@
+<section class="bg-success p-2 text-white bg-opacity-75" id="home" style="padding: 80px 0 50px">
+  <div class="container py-3">
+    <div class="row align-items-center g-4">
+      <!-- left -->
+      <div class="col-md-7">
+        <h1>プロジェクトとチームを作成したいですか？</h1>
+        <p>それならログインして作成できる</p>
+        <% if user_signed_in? %>
+        
+        <% else %>
+          <%= link_to("ログイン", "/users/sign_in", class: "btn btn-dark px-5 shadow") %>
+        <% end %>
+      </div>
+      <!-- right -->
+      <div class="col-md-5 text-center">
+        <%= image_tag "Project-management-system.png", class: "img-fluid", alt:"Content team", style: "height:250px"%>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5">
+  <div class="container text-center py-3">
+    <div class="row pb-3">
+      <div class="col">
+        <h1>以下の三つからそれぞれの詳細を見える。</h1>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col md-4">
+        <div class="border p-3 shadow">
+          <i class="bi bi-info-circle fs-1"></i>
+          <h5>システムについて</h5>
+          <p class="text-muted">
+            システムの説明と注意事項です。
+          </p>
+          <a href="#about" class="btn bg-success p-2 text-white bg-opacity-75 rounded-pill">
+            システムについてはこちら
+          </a>
+        </div>
+      </div>
+      <div class="col md-4">
+        <div class="border p-3 shadow">
+          <i class="bi bi-person-lines-fill fs-1"></i>
+          <h5>チーム一覧</h5>
+          <p class="text-muted">
+            プロジェクトを開発しているチーム一覧です。
+          </p>
+          <%= link_to("チーム一覧はこちら", "/teams", class: "btn bg-success p-2 text-white bg-opacity-75 rounded-pill") %>
+        </div>
+      </div>
+      <div class="col md-4">
+        <div class="border p-3 shadow">
+          <i class="bi bi-list-ul fs-1"></i>
+          <h5>プロジェクト一覧</h5>
+          <p class="text-muted">
+            プロジェクトの詳細についてです。
+          </p>
+          <%= link_to("プロジェクト一覧はこちら", "/projects", class: "btn bg-success p-2 text-white bg-opacity-75 rounded-pill") %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py05" id="about">
+  <div class="container py-3">
+    <div class="row text-center pb-3">
+      <div class="col">
+        <h2>システムについて</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="card shadow h-100">
+          <div class="card-body">
+            <h4 class="card-title">システム概要</h4>
+            <ul>
+              <li>プロジェクトを管理するシステムです。</li>
+              <li>管理しているプロジェクトの詳細を見えるし、プロジェクトを対応しているチームも見えます。</li>
+              <li>ログインしていないユーザーはプロジェクトとチームの情報のみ見えます。</li>
+              <li>ログインしたいユーザーはアカウントの作成が必要なので、「新規登録」からアカウントの作成ができます。</li>
+            </ul>
+            <br>
+            <h4 class="card-title">注意事項：</h4>
+            <ul>
+              <li>ログインしないと、情報のみ見えますので、チームを作成したい方とプロジェクトを作成したい方はナビゲーションバーの「新規登録」ボタンを押下してアカウントを作成してログインして試してください。</li>
+              <li>ログイン後は自分が作成したチーム、プロジェクトの更新、削除することができます。</li>
+              <li>他の人が作成したチームとプロジェクトは更新と削除は出来なくて、情報のみ見えます。</li>
+            </ul>
+            <h4 class="card-title">環境構築：</h4>
+            <ul>
+              <li>プログラミング言語：Rails</li>
+              <li>データベース：PostgreSQL</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

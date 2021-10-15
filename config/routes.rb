@@ -7,5 +7,9 @@ Rails.application.routes.draw do
   root 'home#index'
   # get "/teams", to: "teams#index"
   # get "/teams/new", to: "teams#new"
-  resources :teams
+  resources :teams do
+    resources :members, only: [:index, :create]
+  end
+  resources :projects
+  
 end
