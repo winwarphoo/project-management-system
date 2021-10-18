@@ -15,25 +15,30 @@
     </thead>
     <tbody>
       <% @teams.each do |team| %>
-        <% if team.members.count == 0 %>
-          <tr>
-          </tr>
-        <% else %>
-          <tr>
-            <th scope="row"><%= team.id %></th>
-            <td><%= team.name %></td>
+        <tr>
+          <th scope="row"><%= team.id %></th>
+          <td><%= team.name %></td>
+          <% if team.members.count == 0 %>
+            <td>このチームにメンバーはまだ追加していません。</td>
+            <% else %>
             <td><%= link_to "#{team.members.count}", "/teams/#{team.id}/members" %></td>
-            <td>-</td>
-            <td><%= team.team_create_date %></td>
-            <td>-</td>
-            <td><%= link_to("詳細", "/teams/#{team.id}", class: "btn btn-primary btn-sm") %></td>
-            <td><%= link_to("編集", "/teams/#{team.id}/edit", class: "btn btn-primary btn-sm") %></td>
-            <td><%= link_to("削除", "/teams/#{team.id}", class: "btn btn-danger btn-sm", method: :delete, data: {confirm: "このチーム削除しますか？"}) %></td>
-            
-          </tr>
-        <% end %>
+          <% end %>
+          <% if team.projects.count == 0 %>
+            <td><%= team.projects.count %></td>
+            <% else %>
+            <td><%= link_to "#{team.projects.count}", "/projects" %></td>
+          <% end %>
+          <td><%= team.team_create_date %></td>
+          <td>-</td>
+          <td><%= link_to("詳細", "/teams/#{team.id}", class: "btn btn-primary btn-sm") %></td>
+          <td><%= link_to("編集", "/teams/#{team.id}/edit", class: "btn btn-primary btn-sm") %></td>
+          <td><%= link_to("削除", "/teams/#{team.id}", class: "btn btn-danger btn-sm", method: :delete, data: {confirm: "このチーム削除しますか？"}) %></td>
+        </tr>
+      
       <% end %>
     </tbody>
   </table>
-
+  <div class="digg_pagination">
+    <%= will_paginate @teams %> 
+  </div>
 </div>

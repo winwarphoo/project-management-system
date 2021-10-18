@@ -21,12 +21,6 @@
         <li class="nav-item">
           <%= link_to("ホーム", "/", class: "nav-link text-white" ) %>
         </li>
-        <li class="nav-item">
-            <%= link_to("チーム", "/teams", class: "nav-link text-white") %>
-        </li>
-        <li class="nav-item">
-          <%= link_to("プロジェクト", "/projects", class: "nav-link text-white") %>
-        </li>
         <% if user_signed_in? %>
           <li class="nav-item">
             <%= link_to("ログアウト", "/users/sign_out", method: :delete, class: "nav-link text-white", data: {confirm: "本当にログアウトしますか？"}) %>
