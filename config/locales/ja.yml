@@ -1,0 +1,53 @@
+ja:
+  will_paginate:
+    previous_label: "前へ"
+    next_label: "次へ"
+  date:
+    formats:
+      default: "%Y-%m-%d"
+  activerecord:
+    errors:
+      messages:
+        not_a_date: "を選択してください"
+        date_after: "は%{date}より後に設定してください"
+        date_after_or_equal_to: "は%{date}以後に設定してください"
+        date_before: "は%{date}より前に設定してください"
+        date_before_or_equal_to: "は%{date}以前に設定してください"
+        date_equal_to: "は%{date}にしてください"
+      models:
+        team:
+          attributes:
+            name:
+              blank: "を入力してください。"
+              too_long: "を100桁以下入力してください。"
+        member:
+          attributes:
+            name:
+              blank: "を入力してください。"
+              too_long: "を20桁以下入力してください。"
+            email:
+              blank: "が入力されていません。"
+              too_long: "を30桁以下入力してください。"
+              invalid: "は有効でありません。"
+        project:
+          attributes:
+            name:
+              blank: "を入力してください"
+              too_long: "を100桁以下入力してください"
+            team:
+              required: "を選択してください"
+            start_date:
+              blank: "を選択してください" 
+            end_date:
+              blank: "を選択してください"
+    attributes:
+      team:
+        name: "チーム名"
+      member:
+        name: "氏名"
+        email: "メールアドレス"
+      project:
+        name: "プロジェクト名"
+        team: "チーム名"
+        start_date: "開始日"
+        end_date: "終了日"
