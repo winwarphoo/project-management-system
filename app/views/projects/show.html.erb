@@ -1,8 +1,25 @@
 <br><br>
-<div class="mx-auto justify-content-center", style="width: 500px;">
-<h1>プロジェクトの詳細</h1>
-<p class="fs-4">プロジェクト名:<%= @project.name %></p>
-<p class="fs-4">プロジェクト内容:<%= @project.description %></p>
-<p class="fs-4">開始日:<%= @project.start_date.strftime("%Y-%m-%d") %></p>
-<p class="fs-4">終了日:<%= @project.end_date.strftime("%Y-%m-%d") %></p>
+<div class="mx-auto justify-content-center", style="width: 400px;">
+<h1 class="text-center">チームの詳細</h1>
+<table class="table">
+  <tbody>
+    <tr>
+      <td scope="col">プロジェクト名</td>
+      <td scope="col"><%= @project.name %></td>
+    </tr>
+    <tr>
+      <td scope="col">プロジェクト内容</td>
+      <td scope="col"><%= @project.description %></td>
+    </tr>
+    <tr>
+      <td scope="col">開始日</td>
+      <td scope="col"><%= @project.start_date.strftime("%Y-%m-%d") %></td>
+    </tr>
+    <tr>
+      <td scope="col">終了日</td>
+      <td scope="col"><%= @project.end_date.strftime("%Y-%m-%d") %></td>
+    </tr>
+  </tbody>
+</table>
+<%= link_to "戻る", :back, class: "btn btn-primary" %>
 </div>

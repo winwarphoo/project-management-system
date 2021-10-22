@@ -1,6 +1,12 @@
 <br><br>
 <h1 class="text-center">プロジェクト一覧</h1>
 <div class="mx-auto justify-content-center" style="width: 1200px;">
+  <div class="input-group">
+    <%= form_tag projects_path, method: :get do %>
+      <%= text_field_tag :search, params[:search] %>
+      <%= submit_tag "検索", :name => nil, class: 'btn btn-success',placeholder: "チーム名を入力してください" %>
+    <% end %>
+  </div>
   <table class="table">
     <thead>
       <tr>
@@ -21,8 +27,10 @@
           <td><%= project.description %></td>
           <td><%= project.start_date.strftime("%Y-%m-%d") %></td>
           <td><%= project.end_date.strftime("%Y-%m-%d") %></td>
-          <% if project.end_date > Date.current %>
+          <% if (project.start_date <= Date.current) and (project.end_date > Date.current) %>
             <td>作業中</td>
+          <% elsif (project.start_date > Date.current) %>
+            <td>未対応</td>
           <% else %>
             <td>完了</td>
           <% end %>
@@ -36,5 +44,6 @@
   </table>
   <div class="digg_pagination">
     <%= will_paginate @projects %> 
-  </div>
+  </div><br>
+  <%= link_to "戻る", :back, class: "btn btn-primary" %>
 </div>

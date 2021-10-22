@@ -4,10 +4,11 @@
       <!-- left -->
       <div class="col-md-7">
         <h1>プロジェクトとチームを作成したいですか？</h1>
-        <p>それならログインして作成できる</p>
-        <% if user_signed_in? %>
         
+        <% if user_signed_in? %>
+          <p>それならナビゲーションバーの「チーム作成」と「プロジェクト作成」から作成できる。</p>
         <% else %>
+          <p>それならログインして作成できる。</p>
           <%= link_to("ログイン", "/users/sign_in", class: "btn btn-dark px-5 shadow") %>
         <% end %>
       </div>

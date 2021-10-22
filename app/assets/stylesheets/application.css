@@ -60,3 +60,7 @@
   *:first-child + html .digg_pagination {
     overflow: hidden; 
 }
+
+/* .team_bg {
+  background-color: #39B46B;
+} */

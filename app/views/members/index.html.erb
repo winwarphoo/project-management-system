@@ -1,6 +1,6 @@
 <br><br>
-<h1 class="text-center">メンバー（一覧）</h1>
-<div class="mx-auto justify-content-center" style="width: 500px;">
+<div class="mx-auto dflex justify-content-center" style="width: 400px;">
+<h1>メンバー（一覧）</h1>
   <table class="table">
     <thead>
       <tr>
@@ -10,7 +10,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @members.each do |member| %>
+      <% @team.members.each do |member| %>
         <tr>
           <td><%= member.id %></td>
           <td><%= member.name %></td>
@@ -19,4 +19,5 @@
       <% end %>
     </tbody>
   </table>
+  <%= link_to "戻る", :back, class: "btn btn-primary" %>
 </div>

@@ -7,8 +7,11 @@ Rails.application.routes.draw do
   root 'home#index'
   # get "/teams", to: "teams#index"
   # get "/teams/new", to: "teams#new"
+  get '/search', to: 'teams#search'
   resources :teams do
-    resources :members, only: [:index, :create]
+    get "/member_add", to: "teams#member_add"
+    resources :members, only: [:index, :create, :destroy]
+    
   end
   resources :projects
   
