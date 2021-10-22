@@ -1,11 +1,18 @@
 <br><br>
-<div class="mx-auto justify-content-center" style="width: 500px;">
-<h1>チーム作成</h1>
+<div class="mx-auto justify-content-center team_bg" style="width: 300px;">
+<h1 class="text-center">チーム作成</h1>
 <%= form_with(model: @team, local: true) do |f| %>
+  <% if @team.errors.any? %>
+    <% @team.errors.full_messages.each do |message| %>
+      <p class="fw-bold", style="color:red;"><%= message %></p><br>
+    <% end %>
+  <% end %>
   <div class="mb-3">
     <%= f.label :name, "チーム名", class: "form-label" %><br />
-    <%= f.text_field :name, class: "form-control", style: "width:200px" %>
+    <%= f.text_field :name, class: "form-control", style: "width:250px" %>
   </div>
   <%= f.submit "作成", class: "btn btn-primary" %>
+  <%= link_to "戻る", :back, class: "btn btn-primary" %>
 <% end %>
+
 </div>

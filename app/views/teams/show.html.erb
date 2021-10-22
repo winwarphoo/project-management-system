@@ -1,32 +1,46 @@
 <br><br>
-<div class="mx-auto justify-content-center", style="width: 500px;">
-<h1>メンバー追加</h1>
-<p class="fs-4">チーム名:<%= @team.name %></p>
+<div class="mx-auto justify-content-center", style="width: 400px;">
+<h1 class="text-center">チームの詳細</h1>
 <table class="table">
-  <thead>
-    <tr>
-      <th>氏名</th>
-      <th>メールアドレス</th>
-    </tr>
-  </thead>
   <tbody>
-    <% @team.members.each do |member| %>
-      <tr>
-        <td><%= member.name %></td>
-        <td><%= member.email %></td>
-      </tr>
-    <% end %>
+    <tr>
+      <td scope="col">チーム名</td>
+      <td scope="col"><%= @team.name %></td>
+    </tr>
+    <tr>
+      <td scope="col">チームの作成者</td>
+      <td scope="col"><%= @team.user.name %></td>
+    </tr>
+    <tr>
+      <td scope="col">メンバー</td>
+      <td scope="col">
+        <ol>
+          <% @team.members.each do |member| %>
+            <li>
+              <%= member.name %>
+            </li>
+          <% end %>
+        </ol>
+      </td>
+    </tr>
+    <tr>
+      <td scope="col">プロジェクト</td>
+      <td scope="col">
+        <ol>
+          <% @team.projects.each do |project| %>
+            <li>
+              <%= project.name %>
+                <ul>
+                  <li>
+                    <%= project.description %>
+                  </li>
+                </ul>
+            </li>
+          <% end %>
+        </ol>
+      </td>
+    </tr>
   </tbody>
 </table>
-<%= form_with(model: [@team, @member], local: true) do |f| %>
-  <div class="mb-3">
-    <%= f.label :name, "氏名", class: "form-label" %><br />
-    <%= f.text_field :name, class: "form-control", style: "width:250px" %>
-  </div>
-  <div class="mb-3">
-    <%= f.label :email, "メール", class: "form-label" %><br />
-    <%= f.email_field :email, class: "form-control", style: "width:250px" %>
-  </div>
-  <%= f.submit "メンバー追加", class: "btn btn-primary" %>
-<% end %>
+<%= link_to "戻る", :back, class: "btn btn-primary" %>
 </div>
