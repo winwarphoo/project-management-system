@@ -1,23 +1,41 @@
 <br><br>
 <div class="mx-auto justify-content-center", style="width: 400px;">
-<h1 class="text-center">チームの詳細</h1>
+<h1 class="text-center">プロジェクトの詳細情報</h1>
 <table class="table">
   <tbody>
     <tr>
-      <td scope="col">プロジェクト名</td>
+      <td class="fw-bold" scope="col">プロジェクト名</td>
       <td scope="col"><%= @project.name %></td>
     </tr>
     <tr>
-      <td scope="col">プロジェクト内容</td>
+      <td class="fw-bold" scope="col">プロジェクト内容</td>
       <td scope="col"><%= @project.description %></td>
     </tr>
     <tr>
-      <td scope="col">開始日</td>
+      <td class="fw-bold" scope="col">チーム名</td>
+      <td scope="col"><%= @project.team.name %></td>
+    </tr>
+    <tr>
+      <td class="fw-bold" scope="col">開始日</td>
       <td scope="col"><%= @project.start_date.strftime("%Y-%m-%d") %></td>
     </tr>
     <tr>
-      <td scope="col">終了日</td>
+      <td class="fw-bold" scope="col">終了日</td>
       <td scope="col"><%= @project.end_date.strftime("%Y-%m-%d") %></td>
+    </tr>
+    <tr>
+      <td class="fw-bold" scope="col">ステータス</td>
+      <% if (@project.start_date <= Date.current) and (@project.end_date > Date.current) %>
+        <td>作業中</td>
+      <% elsif (@project.start_date > Date.current) %>
+        <td>未対応</td>
+      <% else %>
+        <td>完了</td>
+      <% end %>
+    </tr>
+    <tr>
+      <td class="fw-bold" scope="col">プロジェクト作成者</td>
+      <td scope="col"><%= @project.team.user.name %></td>
     </tr>
   </tbody>
 </table>

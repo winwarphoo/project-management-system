@@ -3,8 +3,8 @@
 <div class="mx-auto justify-content-center" style="width: 1200px;">
   <div class="input-group">
     <%= form_tag teams_path, method: :get do %>
-      <%= text_field_tag :search, params[:search] %>
-      <%= submit_tag "検索", :name => nil, class: 'btn btn-success',placeholder: "チーム名を入力してください" %>
+      <%= text_field_tag :search, params[:search], placeholder: "チーム名を入力してください", style: "width: 250px;height :35px;" %>
+      <%= submit_tag "検索", :name => nil, class: 'btn btn-success' %>
     <% end %>
   </div>
   <table class="table">
@@ -16,54 +16,66 @@
         <th scope="col">プロジェクト数</th>
         <th scope="col">作成日</th>
         <th scope="col">作成者</th>
-        <th colspan="4"></th>
+        <th class="text-center" scope="col">メンバー追加</th>
+        <th class="text-center" scope="col">詳細</th>
+        <th class="text-center" scope="col">編集</th>
+        <th class="text-center" scope="col">削除</th>
+        <%# <th colspan="4"></th> %>
       </tr>
     </thead>
     <tbody>
-      
-      <% @teams.each do |team| %>
-        <tr>
-          <% if user_signed_in? %>
-            <th scope="row"><%= team.id %></th>
-            <td><%= team.name %></td>
-            <% if team.members.count == 0 %>
-              <td>このチームにメンバーはまだ追加していません。</td>
+      <% if @teams.any? %>
+        <% if params[:page].nil? || params[:page] == "0" || params[:page] == "1" %>
+          <% i = 0 %>
+        <% else %>
+          <% page = params[:page].to_i - 1 %>
+          <% i = page * 5 %>
+        <% end %>
+        <% @teams.each_with_index do |team,index| %>
+          <tr>
+            <% if user_signed_in? %>
+              <th scope="row"><%= index + i + 1 %></th>
+              <td><%= team.name %></td>
+              <% if team.members.count == 0 %>
+                <td>このチームにメンバーはまだ追加していません。</td>
+                <% else %>
+                <td><%= link_to "#{team.members.count}", "/teams/#{team.id}/members" %></td>
+              <% end %>
+              <td><%= team.projects.count %></td>
+              <td><%= team.team_create_date %></td>
+              <td><%= team.user.name %></td>
+            
+              <% if (team.user.id == current_user.id)%>
+                <td class="text-center"><%= link_to("メンバー追加", "/teams/#{team.id}/member_add", class: "btn btn-primary btn-sm") %></td>
+                <td class="text-center"><%= link_to("詳細", "/teams/#{team.id}", class: "btn btn-info btn-sm") %></td>
+                <td class="text-center"><%= link_to("編集", "/teams/#{team.id}/edit", class: 'btn btn-primary btn-sm') %></td>
+                <td class="text-center"><%= link_to("削除", "/teams/#{team.id}", class: "btn btn-danger btn-sm", method: :delete, data: {confirm: "このチーム削除しますか？"}) %></td>
               <% else %>
-              <td><%= link_to "#{team.members.count}", "/teams/#{team.id}/members" %></td>
-            <% end %>
-            <td><%= team.projects.count %></td>
-            <td><%= team.team_create_date %></td>
-            <td><%= team.user.name %></td>
-          
-            <% if (team.user.id == current_user.id)%>
-              <td><%= link_to("メンバー追加", "/teams/#{team.id}/member_add", class: "btn btn-primary btn-sm") %></td>
-              <td><%= link_to("詳細", "/teams/#{team.id}", class: "btn btn-info btn-sm") %></td>
-              <td><%= link_to("編集", "/teams/#{team.id}/edit", class: 'btn btn-primary btn-sm') %></td>
-              <td><%= link_to("削除", "/teams/#{team.id}", class: "btn btn-danger btn-sm", method: :delete, data: {confirm: "このチーム削除しますか？"}) %></td>
+                <td class="text-center"><button disabled="disabled" class="btn btn-primary btn-sm">メンバー追加</button></td>
+                <td class="text-center"><%= link_to("詳細", "/teams/#{team.id}", class: "btn btn-info btn-sm") %></td>
+                <td class="text-center"><button disabled="disabled" class="btn btn-primary btn-sm">編集</button></td>
+                <td class="text-center"><button disabled="disabled" class="btn btn-danger btn-sm">削除</button></td>       
+              <% end %>
             <% else %>
-              <td><button disabled="disabled" class="btn btn-primary btn-sm">メンバー追加</button></td>
-              <td><%= link_to("詳細", "/teams/#{team.id}", class: "btn btn-info btn-sm") %></td>
-              <td><button disabled="disabled" class="btn btn-primary btn-sm">編集</button></td>
-              <td><button disabled="disabled" class="btn btn-danger btn-sm">削除</button></td>       
+              <th scope="row"><%= index + i + 1 %></th>
+              <td><%= team.name %></td>
+              <% if team.members.count == 0 %>
+                <td>このチームにメンバーはまだ追加していません。</td>
+                <% else %>
+                <td><%= link_to "#{team.members.count}", "/teams/#{team.id}/members" %></td>
+              <% end %>
+              <td><%= team.projects.count %></td>
+              <td><%= team.team_create_date %></td>
+              <td><%= team.user.name %></td>
+              <td class="text-center"><button disabled="disabled" class="btn btn-primary btn-sm">メンバー追加</button></td>
+              <td class="text-center"><%= link_to("詳細", "/teams/#{team.id}", class: "btn btn-info btn-sm") %></td>
+              <td class="text-center"><button disabled="disabled" class="btn btn-primary btn-sm">編集</button></td>
+              <td class="text-center"><button disabled="disabled" class="btn btn-danger btn-sm">削除</button></td>
             <% end %>
-          <% else %>
-            <th scope="row"><%= team.id %></th>
-            <td><%= team.name %></td>
-            <% if team.members.count == 0 %>
-              <td>このチームにメンバーはまだ追加していません。</td>
-              <% else %>
-              <td><%= link_to "#{team.members.count}", "/teams/#{team.id}/members" %></td>
-            <% end %>
-            <td><%= team.projects.count %></td>
-            <td><%= team.team_create_date %></td>
-            <td><%= team.user.name %></td>
-            <td><button disabled="disabled" class="btn btn-primary btn-sm">メンバー追加</button></td>
-            <td><%= link_to("詳細", "/teams/#{team.id}", class: "btn btn-info btn-sm") %></td>
-            <td><button disabled="disabled" class="btn btn-primary btn-sm">編集</button></td>
-            <td><button disabled="disabled" class="btn btn-danger btn-sm">削除</button></td>
-          <% end %>
-        </tr>
-      
+          </tr>
+        <% end %>
+      <% else %>
+        <th class="fw-bold text-center" colspan="10">チームのデータがございません。</th>
       <% end %>
     </tbody>
   </table>

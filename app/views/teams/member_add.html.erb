@@ -25,7 +25,7 @@
     <% @member.errors.full_messages.each do |message| %>
       <p class="fw-bold" style="color:red;"><%= message %></p>
     <% end %>
-    <% end %>
+  <% end %>
   <div class="mb-3">
     <%= f.label :name, "氏名", class: "form-label" %><br />
     <%= f.text_field :name, class: "form-control", style: "width:250px" %>
@@ -34,8 +34,9 @@
     <%= f.label :email, "メール", class: "form-label" %><br />
     <%= f.email_field :email, class: "form-control", style: "width:250px" %>
   </div>
-  <%= f.submit "メンバー追加", class: "btn btn-primary" %>
   <%= link_to "戻る", :back, class: "btn btn-primary" %>
+  <%= f.submit "メンバー追加", class: "btn btn-primary" %>
+  <%= link_to "メンバー追加終了", "/teams/#{@team.id}/members", class: "btn btn-primary" %>
 <% end %>
 
 </div>

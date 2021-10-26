@@ -9,12 +9,20 @@ ja:
     errors:
       messages:
         not_a_date: "を選択してください"
-        date_after: "は%{date}より後に設定してください"
+        date_after: "は開始日より後に設定してください"
         date_after_or_equal_to: "は%{date}以後に設定してください"
-        date_before: "は%{date}より前に設定してください"
+        date_before: "は終了日より前に設定してください"
         date_before_or_equal_to: "は%{date}以前に設定してください"
         date_equal_to: "は%{date}にしてください"
       models:
+        user:
+          attributes:
+            email:
+              blank: "を入力してください。"
+              invalid: "は有効でありません。"
+            password:
+              blank: "を入力してください。"
+              too_short: を6桁以上入力してください。"
         team:
           attributes:
             name:
@@ -41,6 +49,9 @@ ja:
             end_date:
               blank: "を選択してください"
     attributes:
+      user:
+        email: "メールアドレス"
+        password: "パスワード"
       team:
         name: "チーム名"
       member:

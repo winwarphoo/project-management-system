@@ -1,43 +1,55 @@
 <br><br>
 <div class="mx-auto justify-content-center", style="width: 400px;">
-<h1 class="text-center">チームの詳細</h1>
+<h1 class="text-center">チームの詳細情報</h1>
 <table class="table">
   <tbody>
     <tr>
-      <td scope="col">チーム名</td>
+      <td class="fw-bold" scope="col">チーム名</td>
       <td scope="col"><%= @team.name %></td>
     </tr>
     <tr>
-      <td scope="col">チームの作成者</td>
+      <td class="fw-bold" scope="col">チームの作成者</td>
       <td scope="col"><%= @team.user.name %></td>
     </tr>
     <tr>
-      <td scope="col">メンバー</td>
+      <td class="fw-bold" scope="col">チームの作成日</td>
+      <td scope="col"><%= @team.team_create_date %></td>
+    </tr>
+    <tr>
+      <td class="fw-bold" scope="col">メンバー</td>
       <td scope="col">
-        <ol>
-          <% @team.members.each do |member| %>
-            <li>
-              <%= member.name %>
-            </li>
-          <% end %>
-        </ol>
+        <% if @team.members.count != 0 %>
+          <ol>
+            <% @team.members.each do |member| %>
+              <li>
+                <%= member.name %>
+              </li>
+            <% end %>
+          </ol>
+        <% else %>
+        -
+        <% end %>
       </td>
     </tr>
     <tr>
-      <td scope="col">プロジェクト</td>
+      <td class="fw-bold" scope="col">プロジェクト</td>
       <td scope="col">
-        <ol>
-          <% @team.projects.each do |project| %>
-            <li>
-              <%= project.name %>
-                <ul>
-                  <li>
-                    <%= project.description %>
-                  </li>
-                </ul>
-            </li>
-          <% end %>
-        </ol>
+        <% if @team.projects.count != 0 %>
+          <ol>
+            <% @team.projects.each do |project| %>
+              <li>
+                <%= project.name %>
+                  <ul>
+                    <li>
+                      <%= project.description %>
+                    </li>
+                  </ul>
+              </li>
+            <% end %>
+          </ol>
+        <% else %>
+        -
+        <% end %>
       </td>
     </tr>
   </tbody>
