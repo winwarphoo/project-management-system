@@ -1,8 +1,8 @@
 <br><br>
-<div class="mx-auto justify-content-center", style="width: 500px;">
-<h1>メンバー追加</h1>
-<p class="fs-4">チーム名:<%= @team.name %></p>
-<table class="table">
+<div class="container" id="members">
+<h2 class="text-center">メンバー追加</h2>
+<p class="fs-4 text-center">チーム名 : <%= @team.name %></p>
+<table class="table" id="index-tables">
   <thead>
     <tr>
       <th>氏名</th>
@@ -13,13 +13,18 @@
   <tbody>
     <% @team.members.each do |member| %>
       <tr>
-        <td><%= member.name %></td>
-        <td><%= member.email %></td>
-        <td><%= link_to("削除", "/teams/#{@team.id}/members/#{member.id}", class: "btn btn-danger btn-sm", method: :delete, data: {confirm: "このメンバー削除しますか？"}) %></td>
+        <td data-title="氏名"><%= member.name %></td>
+        <td data-title="メールアドレス"><%= member.email %></td>
+        <td data-title="削除"><%= link_to "/teams/#{@team.id}/members/#{member.id}", method: :delete, data: {confirm: "このメンバーを削除します。よろしいですか？"} do %>
+          <i class="fa fa-trash fa-2x " style="color:red"></i>
+        <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+</div>
+<div class="d-flex justify-content-center">
 <%= form_with(model: [@team, @member], local: true) do |f| %>
   <% if @member.errors.any? %>
     <% @member.errors.full_messages.each do |message| %>
@@ -28,11 +33,11 @@
   <% end %>
   <div class="mb-3">
     <%= f.label :name, "氏名", class: "form-label" %><br />
-    <%= f.text_field :name, class: "form-control", style: "width:250px" %>
+    <%= f.text_field :name, class: "form-control" %>
   </div>
   <div class="mb-3">
     <%= f.label :email, "メール", class: "form-label" %><br />
-    <%= f.email_field :email, class: "form-control", style: "width:250px" %>
+    <%= f.email_field :email, class: "form-control"%>
   </div>
   <%= link_to "戻る", :back, class: "btn btn-primary" %>
   <%= f.submit "メンバー追加", class: "btn btn-primary" %>

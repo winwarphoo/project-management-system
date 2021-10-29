@@ -1,58 +1,58 @@
 <br><br>
-<div class="mx-auto justify-content-center", style="width: 400px;">
-<h1 class="text-center">チームの詳細情報</h1>
-<table class="table">
-  <tbody>
-    <tr>
-      <td class="fw-bold" scope="col">チーム名</td>
-      <td scope="col"><%= @team.name %></td>
-    </tr>
-    <tr>
-      <td class="fw-bold" scope="col">チームの作成者</td>
-      <td scope="col"><%= @team.user.name %></td>
-    </tr>
-    <tr>
-      <td class="fw-bold" scope="col">チームの作成日</td>
-      <td scope="col"><%= @team.team_create_date %></td>
-    </tr>
-    <tr>
-      <td class="fw-bold" scope="col">メンバー</td>
-      <td scope="col">
-        <% if @team.members.count != 0 %>
-          <ol>
-            <% @team.members.each do |member| %>
-              <li>
-                <%= member.name %>
-              </li>
-            <% end %>
-          </ol>
+<div class="container">
+  <div class="container">
+    <h2 class="text-center">チームの詳細情報</h2>
+  </div>
+  <div class="card">
+    <h5 class="card-header">チーム名</h5>
+    <div class="card-body">
+      <p class="card-text"><%= @team.name %></p>
+    </div>
+  </div>
+  <div class="card">
+    <h5 class="card-header">チーム作成者</h5>
+    <div class="card-body">
+      <p class="card-text"><%= @team.user.name %></p>
+    </div>
+  </div>
+  <div class="card">
+    <h5 class="card-header">チーム作成日</h5>
+    <div class="card-body">
+      <p class="card-text"><%= @team.team_create_date %></p>
+    </div>
+  </div>
+  <div class="card">
+    <h5 class="card-header">メンバー</h5>
+    <div class="card-body">
+      <% if @team.members.count != 0 %>
+        <ol>
+          <% @team.members.each do |member| %>
+            <li>   
+              <p class="card-text"><%= member.name %></p>  
+            </li>
+          <% end %>
+        </ol>
         <% else %>
-        -
-        <% end %>
-      </td>
-    </tr>
-    <tr>
-      <td class="fw-bold" scope="col">プロジェクト</td>
-      <td scope="col">
-        <% if @team.projects.count != 0 %>
-          <ol>
-            <% @team.projects.each do |project| %>
-              <li>
-                <%= project.name %>
-                  <ul>
-                    <li>
-                      <%= project.description %>
-                    </li>
-                  </ul>
-              </li>
-            <% end %>
-          </ol>
-        <% else %>
-        -
-        <% end %>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<%= link_to "戻る", :back, class: "btn btn-primary" %>
+        <p class="card-text">-</p>  
+      <% end %>
+    </div>
+  </div>
+  <div class="card">
+    <h5 class="card-header">プロジェクト</h5>
+    <div class="card-body">
+      <% if @team.projects.count != 0 %>
+          <% @team.projects.each_with_index do |project,index| %>
+              <h5 class="card-title"><%= index + 1 %>.<%= project.name %></h5>
+                <ul>
+                  <li>
+                    <p class="card-text"><%= project.description %></p>  
+                  </li>
+                </ul>
+          <% end %>
+      <% else %>
+      <p class="card-text">-</p>
+      <% end %>
+    </div>
+  </div>
+  <%= link_to "戻る", :back, class: "btn btn-primary" %>
 </div>

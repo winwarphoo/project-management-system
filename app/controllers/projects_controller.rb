@@ -1,5 +1,7 @@
 class ProjectsController < ApplicationController
-
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :project_check, only: [:show]
+  
   def index
     # @projects = Project.all
     @projects = Project.search(params[:search]).paginate(page: params[:page], per_page: 5)
@@ -11,8 +13,6 @@ class ProjectsController < ApplicationController
   
   def new
     @project = Project.new
-    # @teams = Team.select(:id, :name)
-    # @teams = Team.where('id = ?', '3').select( "name")
   end
 
   def create
@@ -50,6 +50,11 @@ class ProjectsController < ApplicationController
   end
 
   private
+    def project_check
+      @project = Project.find_by(id: params[:id])
+      redirect_to root_path unless @project 
+    end
+
     def project_params
       params.require(:project).permit(:name, :description, :start_date, :end_date, :team_id)
     end

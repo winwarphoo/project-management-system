@@ -1,6 +1,8 @@
 <br><br>
-<div class="mx-auto justify-content-center" style="width: 400px;">
-<h1 class="text-center">プロジェクトの情報変更</h1>
+<div>
+  <h2 class="text-center">プロジェクトの情報変更</h2>
+</div>
+<div class="d-flex justify-content-center">
 <%= form_with(model: @project, local: true) do |f| %>
   <% if @project.errors.any? %>
     <% @project.errors.full_messages.each do |message| %>
@@ -9,23 +11,23 @@
   <% end %>
   <div class="mb-3">
     <%= f.label :team_id, "チーム名", class: "form-label" %><br />
-    <%= f.collection_select :team_id, Team.all, :id, :name, prompt: "チーム名を選択してください", class: "form-control", style: "width:250px" %>
+    <%= f.collection_select :team_id, Team.where(user_id: current_user.id), :id, :name, {prompt: "チーム名を選択してください"}, {class: "form-select"} %>
   </div>
   <div class="mb-3">
     <%= f.label :name, "プロジェクト名", class: "form-label" %><br />
-    <%= f.text_field :name, class: "form-control", style: "width:250px" %>
+    <%= f.text_field :name, class: "form-control" %>
   </div>
   <div class="mb-3">
     <%= f.label :description, "プロジェクト内容", class: "form-label" %><br />
-    <%= f.text_area :description, class: "form-control", style: "width:250px" %>
+    <%= f.text_area :description, class: "form-control" %>
   </div>
   <div class="mb-3">
     <%= f.label :start_date, "開始日", class: "form-label" %><br />
-    <%= f.date_field :start_date, class: "form-control", style: "width:250px" %>
+    <%= f.date_field :start_date, class: "form-control" %>
   </div>
   <div class="mb-3">
     <%= f.label :end_date, "終了日", class: "form-label" %><br />
-    <%= f.date_field :end_date, class: "form-control", style: "width:250px" %>
+    <%= f.date_field :end_date, class: "form-control" %>
   </div>
   <%= f.submit "更新", class: "btn btn-primary" %>
   <%= link_to "戻る", :back, class: "btn btn-primary" %>

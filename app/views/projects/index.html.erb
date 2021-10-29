@@ -1,72 +1,89 @@
 <br><br>
-<h1 class="text-center">プロジェクト一覧</h1>
-<div class="mx-auto justify-content-center" style="width: 1200px;">
-  <div class="input-group">
-    <%= form_tag projects_path, method: :get do %>
-      <%= text_field_tag :search, params[:search], placeholder: "プロジェクト名を入力してください", style: "width: 250px;height :35px;" %>
-      <%= submit_tag "検索", :name => nil, class: 'btn btn-success' %>
-    <% end %>
-  </div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">プロジェクト名</th>
-        <th scope="col">チーム名</th>
-        <th scope="col">開始日</th>
-        <th scope="col">終了日</th>
-        <th scope="col">ステータス</th>
-        <th class="text-center" scope="col">詳細</th>
-        <th class="text-center" scope="col">編集</th>
-        <th class="text-center" scope="col">削除</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% if @projects.any? %>
-        <% if params[:page].nil? || params[:page] == "0" || params[:page] == "1" %>
-          <% i = 0 %>
-        <% else %>
-          <% page = params[:page].to_i - 1 %>
-          <% i = page * 5 %>
-        <% end %>
-        <% @projects.each_with_index do |project,index| %>
-          <tr>
-            <th scope="row"><%= index + i + 1 %></th>
-            <td><%= project.name %></td>
-            <td><%= project.team.name %></td>
-            <td><%= project.start_date.strftime("%Y-%m-%d") %></td>
-            <td><%= project.end_date.strftime("%Y-%m-%d") %></td>
-            <% if (project.start_date <= Date.current) and (project.end_date > Date.current) %>
-              <td>作業中</td>
-            <% elsif (project.start_date > Date.current) %>
-              <td>未対応</td>
-            <% else %>
-              <td>完了</td>
-            <% end %>  
-            <% if user_signed_in? %>          
-              <% if (project.team.user_id == current_user.id) %>
-                <td  class="text-center"><%= link_to("詳細", "/projects/#{project.id}", class: "btn btn-info btn-sm") %></td>
-                <td  class="text-center"><%= link_to("編集", "/projects/#{project.id}/edit", class: "btn btn-primary btn-sm") %></td>
-                <td  class="text-center"><%= link_to("削除", "/projects/#{project.id}", class: "btn btn-danger btn-sm", method: :delete, data: {confirm: "このプロジェクトを削除します。よろしですか？"}) %></td>
-              <% else %>
-                <td class="text-center"><%= link_to("詳細", "/projects/#{project.id}", class: "btn btn-info btn-sm") %></td>
-                <td class="text-center"><button disabled="disabled" class="btn btn-primary btn-sm">編集</button></td>
-                <td class="text-center"><button disabled="disabled" class="btn btn-danger btn-sm">削除</button></td>       
-              <% end %>
-            <% else %>   
-                <td class="text-center"><%= link_to("詳細", "/projects/#{project.id}", class: "btn btn-info btn-sm") %></td>
-                <td class="text-center"><button disabled="disabled" class="btn btn-primary btn-sm">編集</button></td>
-                <td class="text-center"><button disabled="disabled" class="btn btn-danger btn-sm">削除</button></td> 
-            <% end %>
-          </tr>
-        <% end %>
-      <% else %>
-        <th class="fw-bold text-center" colspan="9">プロジェクトのデータがございません。</th>
+<div class="container">
+  <h1 class="text-center">プロジェクト一覧</h1>
+  <div class="mx-auto justify-content-center">
+    <div class="input-group">
+      <%= form_tag projects_path, method: :get do %>
+        <%= text_field_tag :search, params[:search], placeholder: "プロジェクト名を入力してください", id:"search" %>
+        <%= submit_tag "検索", :name => nil, class: 'btn btn-success' %>
       <% end %>
-    </tbody>
-  </table>
-  <div class="digg_pagination">
-    <%= will_paginate @projects %> 
-  </div><br>
-  <%= link_to "戻る", :back, class: "btn btn-primary" %>
+    </div>
+    <table class="table" id="index-tables">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>プロジェクト名</th>
+          <th>チーム名</th>
+          <th>開始日</th>
+          <th>終了日</th>
+          <th>ステータス</th>
+          <th>詳細</th>
+          <th>編集</th>
+          <th>削除</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @projects.any? %>
+          <% if params[:page].nil? || params[:page] == "0" || params[:page] == "1" %>
+            <% i = 0 %>
+          <% else %>
+            <% page = params[:page].to_i - 1 %>
+            <% i = page * 5 %>
+          <% end %>
+          <% @projects.each_with_index do |project,index| %>
+            <tr>
+              <th data-title="#"><%= index + i + 1 %></th>
+              <td data-title="プロジェクト名"><%= project.name %></td>
+              <td data-title="チーム名"><%= project.team.name %></td>
+              <td data-title="開始日"><%= project.start_date.strftime("%Y-%m-%d") %></td>
+              <td data-title="終了日"><%= project.end_date.strftime("%Y-%m-%d") %></td>
+              <% if (project.start_date <= Date.current) and (project.end_date > Date.current) %>
+                <td data-title="ステータス">作業中</td>
+              <% elsif (project.start_date > Date.current) %>
+                <td data-title="ステータス">未対応</td>
+              <% else %>
+                <td data-title="ステータス">完了</td>
+              <% end %>  
+              <% if user_signed_in? %>          
+                <% if (project.team.user_id == current_user.id) %>
+                  <td data-title="詳細"><%= link_to "/projects/#{project.id}", method: :get do %>
+                    <i class="fa fa-info-circle fa-2x"></i>
+                  <% end %>
+                  </td>
+                  <td data-title="編集"><%= link_to "/projects/#{project.id}/edit", method: :get do %>
+                    <i class="fa fa-edit fa-2x"></i>
+                  <% end %>
+                  </td>
+                  <td data-title="削除"><%= link_to "/projects/#{project.id}", method: :delete, data: {confirm: "このプロジェクトを削除します。よろしいですか？"} do %>
+                    <i class="fa fa-trash fa-2x " style="color:red"></i>
+                  <% end %>
+                  </td>
+                <% else %>
+                  <td data-title="詳細"><%= link_to "/projects/#{project.id}", method: :get do %>
+                    <i class="fa fa-info-circle fa-2x"></i>
+                  <% end %>
+                  </td>
+                  <td data-title="編集"><i class="fa fa-edit fa-2x " style="color:#85C1E9"></i></td>
+                  <td data-title="削除"><i class="fa fa-trash fa-2x " style="color:#F1948A"></i></td>        
+                <% end %>
+              <% else %>   
+                  <td data-title="詳細"><%= link_to "/projects/#{project.id}", method: :get do %>
+                    <i class="fa fa-info-circle fa-2x"></i>
+                  <% end %>
+                  </td>
+                  <td data-title="編集"><i class="fa fa-edit fa-2x " style="color:#85C1E9"></i></td>
+                  <td data-title="削除"><i class="fa fa-trash fa-2x " style="color:#F1948A"></i></td>
+              <% end %>
+            </tr>
+          <% end %>
+        <% else %>
+          <th class="fw-bold text-center" colspan="9">プロジェクトのデータがございません。</th>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="digg_pagination">
+      <%= will_paginate @projects %> 
+    </div><br>
+    <%= link_to "戻る", :back, class: "btn btn-primary" %>
+  </div>
 </div>

@@ -1,5 +1,6 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :team_check, only: [:show]
   def index
     @test = "チーム一覧を見る"
     @teams = Team.search(params[:search]).paginate(page: params[:page], per_page: 5)
@@ -38,24 +39,6 @@ class TeamsController < ApplicationController
     end
   end
 
-  # def create
-  #   @team = Team.new(team_params)
-  #   if @team.save
-  #     @member = Member.new(member_params)
-  #       if @member.save
-  #         @member.team_id = @team.id
-  #         redirect_to("/teams")
-  #       else
-  #         redirect_to("/teams/#{@team.id}")
-  #       end
-  #     flash[:notice] = "Team create successfully!!!"
-  #     redirect_to("/teams/#{@team.id}")
-  #   else
-  #     flash.now[:alert] = "Team doesn't create!!!"
-  #     render("teams/new")
-  #   end
-  # end
-
   def edit
     @team = Team.find(params[:id])
   end
@@ -79,6 +62,12 @@ class TeamsController < ApplicationController
   end
 
   private
+
+    def team_check
+      @team = Team.find_by(id: params[:id])
+      redirect_to root_path unless @team 
+    end
+
     def team_params
       params.require(:team).permit(:name)
     end
@@ -87,11 +76,11 @@ class TeamsController < ApplicationController
       params.require(:member).permit(:name, :email)
     end
 
-    def search_for(model, content)
-      if model == 'team'
-        Team.where(name: content)
-      else
-        Team.where('name LIKE ?', '%'+content+'%')
-      end
-    end
+    # def search_for(model, content)
+    #   if model == 'team'
+    #     Team.where(name: content)
+    #   else
+    #     Team.where('name LIKE ?', '%'+content+'%')
+    #   end
+    # end
 end

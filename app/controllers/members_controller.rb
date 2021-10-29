@@ -13,10 +13,9 @@ class MembersController < ApplicationController
       redirect_to("/teams/#{params[:team_id]}/member_add")
     else
       @team = Team.find(params[:team_id])
-      p @team
       flash.now[:alert] = "失敗！"
-      redirect_to("/teams/#{params[:team_id]}/member_add")
-      #render :text => @model_object.html_content
+      render ("teams/member_add")
+      
     end
   end
 

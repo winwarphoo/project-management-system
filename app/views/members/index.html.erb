@@ -1,7 +1,7 @@
 <br><br>
-<div class="mx-auto dflex justify-content-center" style="width: 400px;">
-<h1>メンバー（一覧）</h1>
-  <table class="table">
+<div class="container" id="members">
+<h1 class="text-center">メンバー（一覧）</h1>
+  <table class="table" id="index-tables">
     <thead>
       <tr>
         <th>#</th>
@@ -12,9 +12,9 @@
     <tbody>
       <% @team.members.each do |member| %>
         <tr>
-          <td><%= @count+=1 %></td>
-          <td><%= member.name %></td>
-          <td><%= member.email %></td>
+          <td data-title="#"><%= @count+=1 %></td>
+          <td data-title="氏名"><%= member.name %></td>
+          <td data-title="メールアドレス"><%= member.email %></td>
         </tr>
       <% end %>
     </tbody>

@@ -61,6 +61,123 @@
     overflow: hidden; 
 }
 
-/* .team_bg {
-  background-color: #39B46B;
-} */
+#members {
+  width: 50rem;
+}
+
+#search {
+  width: 250px;
+  height :35px;
+}
+
+@media only screen and (max-width: 850px),
+(min-device-width: 300px) and (max-device-width: 1024px) {
+	
+	/* Force table to not be like tables anymore */
+	#index-tables table, 
+	#index-tables thead, 
+	#index-tables tbody, 
+	#index-tables th, 
+	#index-tables td, 
+	#index-tables tr { 
+		display: block; 
+	}
+ 
+	/* Hide table headers (but not display: none;, for accessibility) */
+	#index-tables thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+ 
+	#index-tables tr { border: 1px solid #ccc; }
+ 
+	#index-tables td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+		white-space: normal;
+		text-align:left;
+	}
+ 
+	#index-tables td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+		text-align:left;
+		font-weight: bold;
+	}
+ 
+	/*
+	Label the data
+	*/
+	#index-tables td:before { content: attr(data-title); }
+}
+
+@media only screen and (max-width: 1500px),
+(min-device-width: 300px) and (max-device-width: 1024px) {
+  /* Force table to not be like tables anymore */
+	#show-tables th{ 
+		position: absolute;
+		top: 6px;
+		left: 6px;
+		width: 50%; 
+		white-space: nowrap;
+		text-align:left;
+		font-weight: bold;
+    font-size: 14px; 
+	}
+	#show-tables td { 
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 30%; 
+		white-space: normal;
+		text-align:left;
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	#show-tables th { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+ 
+	#show-tables td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 30%; 
+		white-space: normal;
+		text-align:left;
+	}
+ 
+	#show-tables td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		white-space: nowrap;
+		text-align:left;
+		font-weight: bold;
+	}	
+
+	/*
+	Label the data
+	*/
+	#show-tables td:before { 
+    content: attr(data-title);
+		font-weight: bold;
+    font-size: 14px; 
+  }
+}

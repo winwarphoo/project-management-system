@@ -1,43 +1,56 @@
 <br><br>
-<div class="mx-auto justify-content-center", style="width: 400px;">
-<h1 class="text-center">プロジェクトの詳細情報</h1>
-<table class="table">
-  <tbody>
-    <tr>
-      <td class="fw-bold" scope="col">プロジェクト名</td>
-      <td scope="col"><%= @project.name %></td>
-    </tr>
-    <tr>
-      <td class="fw-bold" scope="col">プロジェクト内容</td>
-      <td scope="col"><%= @project.description %></td>
-    </tr>
-    <tr>
-      <td class="fw-bold" scope="col">チーム名</td>
-      <td scope="col"><%= @project.team.name %></td>
-    </tr>
-    <tr>
-      <td class="fw-bold" scope="col">開始日</td>
-      <td scope="col"><%= @project.start_date.strftime("%Y-%m-%d") %></td>
-    </tr>
-    <tr>
-      <td class="fw-bold" scope="col">終了日</td>
-      <td scope="col"><%= @project.end_date.strftime("%Y-%m-%d") %></td>
-    </tr>
-    <tr>
-      <td class="fw-bold" scope="col">ステータス</td>
+<div class="container">
+  <div class="container">
+    <h2 class="text-center">プロジェクトの詳細情報</h2>
+  </div>
+  <div class="card">
+    <h5 class="card-header">プロジェクト名</h5>
+    <div class="card-body">
+      <p class="card-text"><%= @project.name %></p>
+    </div>
+  </div>
+  <div class="card">
+    <h5 class="card-header">プロジェクト内容</h5>
+    <div class="card-body">
+      <p class="card-text"><%= @project.description %></p>
+    </div>
+  </div>
+  <div class="card">
+    <h5 class="card-header">チーム名</h5>
+    <div class="card-body">
+      <p class="card-text"><%= @project.team.name %></p>
+    </div>
+  </div>
+  <div class="card">
+    <h5 class="card-header">開始日</h5>
+    <div class="card-body">
+      <p class="card-text"><%= @project.start_date.strftime("%Y-%m-%d") %></p>
+    </div>
+  </div>
+  <div class="card">
+    <h5 class="card-header">終了日</h5>
+    <div class="card-body">
+      <p class="card-text"><%= @project.end_date.strftime("%Y-%m-%d") %></p>
+    </div>
+  </div>
+  <div class="card">
+    <h5 class="card-header">ステータス</h5>
+    <div class="card-body">
       <% if (@project.start_date <= Date.current) and (@project.end_date > Date.current) %>
-        <td>作業中</td>
+        <p class="card-text">作業中</p>
       <% elsif (@project.start_date > Date.current) %>
-        <td>未対応</td>
+        <p class="card-text">対応</p>
       <% else %>
-        <td>完了</td>
+        <p class="card-text">完了</p>
       <% end %>
-    </tr>
-    <tr>
-      <td class="fw-bold" scope="col">プロジェクト作成者</td>
-      <td scope="col"><%= @project.team.user.name %></td>
-    </tr>
-  </tbody>
-</table>
-<%= link_to "戻る", :back, class: "btn btn-primary" %>
+      <p class="card-text"></p>
+    </div>
+  </div>
+  <div class="card">
+    <h5 class="card-header">プロジェクト作成者</h5>
+    <div class="card-body">
+      <p class="card-text"><%= @project.team.user.name %></p>
+    </div>
+  </div>
+  <%= link_to "戻る", :back, class: "btn btn-primary" %>
 </div>
